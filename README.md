@@ -1,4 +1,4 @@
-# 🦷 Toothless AI
+# 🦷 AI BOT TOOTHLESS
 
 ### AI-Powered Smart Price Tracker
 
