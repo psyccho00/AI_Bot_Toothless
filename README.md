@@ -1307,20 +1307,6 @@ Building intelligent applications using modern AI technologies, scalable backend
 
 ---
 
-### Connect with Me
-
-> Add your GitHub, LinkedIn, Portfolio, or Email here.
-
-Example:
-
-- GitHub: https://github.com/psyccho00
-- LinkedIn: https://linkedin.com/in/your-profile
-- Email: your-email@example.com
-
-</div>
-
----
-
 # 🌟 Support the Project
 
 If you found this project helpful or interesting:
