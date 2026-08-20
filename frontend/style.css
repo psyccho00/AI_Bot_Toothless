@@ -285,3 +285,1144 @@ header p {
     margin-left: 0.5rem;
     font-style: italic;
 }
+
+/* ==================== Onboarding & Forms Style Upgrades ==================== */
+.text-center {
+    text-align: center;
+}
+
+.logo-emoji {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 6s infinite ease-in-out alternate;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+    margin-bottom: 2rem;
+}
+
+.onboarding-welcome-text {
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+}
+
+/* Unified Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.8rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-main);
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.btn-lg {
+    padding: 1.1rem 2.2rem;
+    font-size: 1.1rem;
+    border-radius: 18px;
+}
+
+/* Profile Selector Dashboard */
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.profile-card {
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15);
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.1);
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.profile-card:hover .profile-avatar {
+    transform: scale(1.1);
+}
+
+.profile-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.profile-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.add-profile-card {
+    border: 2px dashed rgba(99, 102, 241, 0.2);
+    background: transparent;
+}
+
+.add-profile-card .profile-avatar {
+    background: rgba(99, 102, 241, 0.05);
+    color: var(--primary);
+    font-weight: 300;
+}
+
+/* Profile Card Delete Button */
+.btn-delete-profile {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    opacity: 0.35;
+    padding: 4px 6px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.btn-delete-profile:hover {
+    opacity: 1;
+    background: rgba(220, 38, 38, 0.1);
+}
+
+/* Destructive Action Button */
+.btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+/* Creation Form */
+.scrollable-form {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.scrollable-form::-webkit-scrollbar {
+    width: 5px;
+}
+.scrollable-form::-webkit-scrollbar-thumb {
+    background-color: rgba(99, 102, 241, 0.2);
+    border-radius: 10px;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.form-section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+}
+
+@media (max-width: 500px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+    height: 44px;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    background: white;
+}
+
+.text-field-group {
+    margin-top: 1rem;
+}
+
+/* Avatar Radio Picker */
+.avatar-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.5rem;
+}
+
+.avatar-option {
+    cursor: pointer;
+    text-align: center;
+}
+
+.avatar-option input {
+    display: none;
+}
+
+.avatar-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.avatar-option input:checked + .avatar-icon {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+    transform: scale(1.1);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Modals Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 550px;
+    animation: modalSlide 0.3s ease-out;
+}
+
+.card-sm {
+    max-width: 380px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.modal-header {
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.modal-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.scrollable-modal {
+    max-height: 85vh;
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.scrollable-modal .modal-header {
+    flex-shrink: 0;
+}
+
+.scrollable-modal form {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding-right: 0.25rem;
+}
+
+.scrollable-modal form::-webkit-scrollbar {
+    width: 5px;
+}
+.scrollable-modal form::-webkit-scrollbar-thumb {
+    background-color: rgba(99, 102, 241, 0.2);
+    border-radius: 10px;
+}
+
+@keyframes modalSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Checkbox (Remember Me) */
+.remember-device-wrap {
+    margin: 1.2rem 0;
+    text-align: left;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    user-select: none;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0; width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0; left: 0;
+    height: 20px; width: 20px;
+    background-color: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: rgba(0,0,0,0.08);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 7px; top: 3px;
+    width: 5px; height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Weight History lists */
+.weight-history-section {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 1.5rem;
+}
+
+.weight-history-section h4 {
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 0.25rem;
+}
+
+.history-item {
+    background: rgba(255,255,255,0.5);
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.history-weight {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.history-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.history-empty {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Chat Header Navigation */
+.app-header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    box-shadow: var(--glass-shadow);
+}
+
+.brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.brand-avatar {
+    font-size: 2.2rem;
+}
+
+.app-header-nav h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.app-header-nav p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.05);
+    background: white;
+    cursor: pointer;
+    font-size: 1.05rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==================== Dual Panel Layout & Medical Assistance Panel ==================== */
+#chat-container-wrap.chat-view-wrap {
+    flex-direction: column;
+    max-width: 1280px;
+    width: 96vw;
+    padding: 1rem;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.app-header-nav {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.dual-panel-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
+    flex: 1;
+    align-items: stretch;
+}
+
+.dual-panel-layout .chat-card {
+    flex: 1 1 55%;
+    min-width: 320px;
+    height: 82vh;
+}
+
+.medical-side-panel {
+    flex: 1 1 45%;
+    min-width: 340px;
+    max-width: 520px;
+    height: 82vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.medical-side-panel::-webkit-scrollbar {
+    width: 5px;
+}
+.medical-side-panel::-webkit-scrollbar-thumb {
+    background-color: rgba(99, 102, 241, 0.25);
+    border-radius: 10px;
+}
+
+.medical-panel-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding-bottom: 0.8rem;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.medical-panel-header h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.1rem;
+}
+
+.panel-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* Top Navbar SOS Button */
+.btn-sos-nav {
+    background: #ef4444;
+    color: white;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    animation: pulseGlow 2.5s infinite;
+}
+
+.btn-sos-nav:hover {
+    background: #dc2626;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+
+/* Active SOS Banner */
+.sos-active-card {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.08));
+    border: 2px solid #ef4444;
+    border-radius: 16px;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.sos-active-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.pulse-beacon {
+    width: 12px;
+    height: 12px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    animation: pulseRing 1.5s infinite;
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.sos-active-header h3 {
+    font-size: 1.05rem;
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.sos-demo-notice {
+    font-size: 0.8rem;
+    color: #991b1b;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.6rem;
+    border-radius: 10px;
+}
+
+.sos-active-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.btn-call-emergency {
+    background: #dc2626;
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-call-emergency:hover {
+    background: #b91c1c;
+    transform: translateY(-1px);
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+.btn-xs {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 8px;
+}
+
+/* Location Status Card */
+.location-status-card {
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 0.9rem;
+}
+
+.location-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+
+.loc-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.btn-refresh-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-refresh-icon:hover {
+    transform: rotate(180deg);
+}
+
+.location-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem 0.8rem;
+    font-size: 0.82rem;
+}
+
+.coord-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.coord-item.full-width {
+    grid-column: span 2;
+}
+
+.coord-label {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.coord-val {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.text-address {
+    font-size: 0.8rem;
+    color: var(--primary);
+}
+
+.location-error-alert {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+}
+
+/* Leaflet Map Styling */
+.map-container-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    min-height: 220px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+}
+
+#medical-map {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    z-index: 1;
+}
+
+.map-overlay-loading {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Facility Filters */
+.facility-filters {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.4rem 0.2rem;
+    margin: 0.4rem 0;
+    flex-shrink: 0;
+}
+
+.facility-filters::-webkit-scrollbar {
+    height: 3px;
+}
+.facility-filters::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.filter-chip {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.filter-chip:hover {
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--primary);
+}
+
+.filter-chip.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Selected Facility Card */
+.selected-facility-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid var(--primary);
+    border-radius: 16px;
+    padding: 1rem;
+    animation: fadeIn 0.25s ease-out;
+}
+
+.selected-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.selected-header h4 {
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.badge-type {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.sel-address {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.sel-meta-row {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    margin-bottom: 0.8rem;
+}
+
+.status-open {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.sel-actions {
+    display: flex;
+    gap: 0.6rem;
+}
+
+/* Route Info Banner */
+.route-info-banner {
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    padding: 0.6rem 0.8rem;
+}
+
+.route-info-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--primary);
+}
+
+.btn-text-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Facilities Section */
+.facilities-section h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.6rem;
+}
+
+.facilities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.facility-card {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.facility-card:hover {
+    background: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+}
+
+.facility-card.active-selected {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.fac-icon {
+    font-size: 1.5rem;
+    margin-right: 0.6rem;
+}
+
+.fac-info {
+    flex: 1;
+}
+
+.fac-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.fac-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.fac-meta {
+    text-align: right;
+}
+
+.fac-dist {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.fac-eta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.facility-skeleton {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* SOS Prominent Action Button */
+.sos-action-wrapper {
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+.btn-activate-sos {
+    width: 100%;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+    transition: all 0.25 ease;
+}
+
+.btn-activate-sos:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+/* SOS Modal Styling */
+.card-sos {
+    max-width: 440px;
+    border: 2px solid #ef4444;
+}
+
+.sos-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.sos-icon-pulse {
+    font-size: 2rem;
+    animation: float 2s infinite ease-in-out;
+}
+
+.sos-modal-header h3 {
+    font-size: 1.5rem;
+    color: #dc2626;
+}
+
+.sos-modal-intro {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.sos-location-box {
+    background: rgba(254, 242, 242, 0.8);
+    border: 1px dashed #fca5a5;
+    border-radius: 12px;
+    padding: 0.9rem;
+    text-align: left;
+    margin-bottom: 1.2rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.sos-address-text {
+    margin-top: 0.4rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.sos-modal-warning {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.sos-buttons {
+    justify-content: space-between;
+}
+
+/* Responsive Stacking for Mobile / Tablets */
+@media (max-width: 900px) {
+    .dual-panel-layout {
+        flex-direction: column;
+    }
+    
+    .dual-panel-layout .chat-card {
+        height: 60vh;
+        flex: 1 1 100%;
+    }
+    
+    .medical-side-panel {
+        height: auto;
+        max-height: 650px;
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    
+    .btn-sos-nav {
+        display: inline-block;
+    }
+}
+
+

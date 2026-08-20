@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toothless AI Health Assistant</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 
 <body>
@@ -15,32 +16,541 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <div class="app-container">
-        <header>
-            <h1>🐉 Toothless</h1>
-            <p>Your Personal AI Health Companion</p>
-        </header>
-
-        <main class="glass-card chat-card">
-            <section class="chat-section">
-                <div class="chat-container" id="chat-container">
-                    <div class="message system-message">
-                        <div class="message-content">Hi there! I'm Toothless, your AI health companion. How can I help you today?</div>
-                    </div>
-                </div>
-                
-                <form id="chat-form" class="chat-input-area">
-                    <input type="text" id="chat-input" placeholder="Type your symptoms or message here..." autocomplete="off" required>
-                    <button type="submit" id="send-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                    </button>
-                </form>
-                <p class="disclaimer">⚠️ Disclaimer: This is an AI assistant, not a doctor. This is not medical advice. If you are experiencing a medical emergency, please call emergency services immediately.</p>
-            </section>
+    <!-- Onboarding Welcome Screen -->
+    <div id="welcome-screen" class="app-container onboarding-card" style="display: none;">
+        <main class="glass-card text-center">
+            <h1 class="logo-emoji">🐉</h1>
+            <h2>Welcome to Toothless</h2>
+            <p class="subtitle">Your Personal AI Health Companion</p>
+            <div class="onboarding-welcome-text">
+                Toothless helps you track daily health check-ins, monitor mood trends, manage medications, and consult multiple AI experts securely.
+            </div>
+            <button id="btn-start-create" class="btn btn-primary btn-lg">Create Your Health Profile</button>
         </main>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Profile Selector Dashboard -->
+    <div id="selector-screen" class="app-container profile-selector-card" style="display: none;">
+        <main class="glass-card">
+            <header class="section-header">
+                <h2>Select Profile</h2>
+                <p>Choose an account to start your companion session</p>
+            </header>
+            
+            <div id="profiles-grid" class="profiles-grid">
+                <!-- Profiles will be dynamically injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- PIN Authentication Overlay -->
+    <div id="auth-modal" class="modal-overlay" style="display: none;">
+        <div class="glass-card modal-content card-sm">
+            <h3>Enter Profile PIN</h3>
+            <p id="auth-profile-name" class="auth-subtitle">Unlock Profile</p>
+            <form id="auth-form" class="auth-form-wrap">
+                <input type="password" id="auth-pin-input" maxlength="20" placeholder="Enter 4-digit PIN or password" autocomplete="off" required>
+                <div class="remember-device-wrap">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="auth-remember-check">
+                        <span class="checkmark"></span>
+                        Remember this device
+                    </label>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" id="btn-auth-cancel" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Unlock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Creation Form Screen -->
+    <div id="creation-screen" class="app-container form-card" style="display: none;">
+        <main class="glass-card">
+            <header class="form-header">
+                <h2>Create Health Profile</h2>
+                <p>Set up details to configure your AI health metrics</p>
+            </header>
+
+            <form id="profile-form" class="scrollable-form">
+                <!-- Profile Credentials -->
+                <div class="form-section">
+                    <h3>Account Credentials</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="p-username">Profile/Username Name *</label>
+                            <input type="text" id="p-username" placeholder="e.g. Joydeep, Mom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-password">Profile PIN / Password *</label>
+                            <input type="password" id="p-password" placeholder="4-digit PIN or password" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avatar Selector -->
+                <div class="form-section">
+                    <h3>Select Avatar</h3>
+                    <div class="avatar-selector-grid">
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🐉" checked>
+                            <span class="avatar-icon">🐉</span>
+                        </label>
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🐱">
+                            <span class="avatar-icon">🐱</span>
+                        </label>
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🐶">
+                            <span class="avatar-icon">🐶</span>
+                        </label>
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🦊">
+                            <span class="avatar-icon">🦊</span>
+                        </label>
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🦁">
+                            <span class="avatar-icon">🦁</span>
+                        </label>
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🐼">
+                            <span class="avatar-icon">🐼</span>
+                        </label>
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🐨">
+                            <span class="avatar-icon">🐨</span>
+                        </label>
+                        <label class="avatar-option">
+                            <input type="radio" name="avatar" value="🐙">
+                            <span class="avatar-icon">🐙</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Demographics & Biometrics -->
+                <div class="form-section">
+                    <h3>Demographics & Biometrics</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="p-fullname">Full Name *</label>
+                            <input type="text" id="p-fullname" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-dob">Date of Birth *</label>
+                            <input type="date" id="p-dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-gender">Gender *</label>
+                            <select id="p-gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Non-binary">Non-binary</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-blood">Blood Group</label>
+                            <select id="p-blood">
+                                <option value="Unknown" selected>Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-height">Height (cm) *</label>
+                            <input type="number" id="p-height" step="0.1" placeholder="175" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-weight">Weight (kg) *</label>
+                            <input type="number" id="p-weight" step="0.1" placeholder="70" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="form-section">
+                    <h3>Emergency Contact</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="p-ec-name">Contact Name</label>
+                            <input type="text" id="p-ec-name" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="p-ec-rel">Relationship</label>
+                            <input type="text" id="p-ec-rel" placeholder="e.g. Spouse, Father">
+                        </div>
+                        <div class="form-group">
+                            <label for="p-ec-phone">Phone Number</label>
+                            <input type="tel" id="p-ec-phone" placeholder="Phone Number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lifestyle Optional Fields -->
+                <div class="form-section">
+                    <h3>Lifestyle & Social History</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="p-occupation">Occupation</label>
+                            <input type="text" id="p-occupation" placeholder="e.g. Engineer">
+                        </div>
+                        <div class="form-group">
+                            <label for="p-smoking">Smoking Status</label>
+                            <select id="p-smoking">
+                                <option value="No" selected>Non-smoker</option>
+                                <option value="Yes">Active Smoker</option>
+                                <option value="Former">Former Smoker</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-alcohol">Alcohol Consumption</label>
+                            <select id="p-alcohol">
+                                <option value="Non-drinker" selected>Non-drinker</option>
+                                <option value="Social">Social Drinker</option>
+                                <option value="Regular">Regular Drinker</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-exercise">Exercise Frequency</label>
+                            <select id="p-exercise">
+                                <option value="Rare" selected>Rarely</option>
+                                <option value="1-2 times/week">1-2 times / week</option>
+                                <option value="3+ times/week">3+ times / week</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-lang">Preferred Language</label>
+                            <input type="text" id="p-lang" placeholder="English">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Initial Health status -->
+                <div class="form-section">
+                    <h3>Initial Health Data</h3>
+                    <div class="form-group">
+                        <label for="p-allergies">Allergies (comma-separated)</label>
+                        <input type="text" id="p-allergies" placeholder="e.g. Peanuts, Penicillin">
+                    </div>
+                    <div class="form-group" style="display: none;">
+                        <label for="p-allergies-cat">Allergies Categories (comma-separated matches)</label>
+                        <input type="text" id="p-allergies-cat" placeholder="Food, Medication">
+                    </div>
+                    <div class="form-group">
+                        <label for="p-conditions">Existing Conditions (comma-separated)</label>
+                        <input type="text" id="p-conditions" placeholder="e.g. Asthma, Hypertension">
+                    </div>
+                    <div class="form-group">
+                        <label for="p-medications">Current Medications (comma-separated)</label>
+                        <input type="text" id="p-medications" placeholder="e.g. Albuterol, Metformin">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="btn-create-back" class="btn btn-secondary">Back</button>
+                    <button type="submit" class="btn btn-primary">Create Profile</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <!-- Profile Settings Modal -->
+    <div id="settings-modal" class="modal-overlay" style="display: none;">
+        <div class="glass-card modal-content scrollable-modal">
+            <header class="modal-header">
+                <h2>Profile Configurations</h2>
+                <p>Manage health metrics, contacts, and active logs</p>
+            </header>
+
+            <form id="settings-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="s-weight">Weight (kg) *</label>
+                        <input type="number" id="s-weight" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="s-height">Height (cm) *</label>
+                        <input type="number" id="s-height" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="s-ec-name">Emergency Contact Name</label>
+                        <input type="text" id="s-ec-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="s-ec-rel">Relationship</label>
+                        <input type="text" id="s-ec-rel">
+                    </div>
+                    <div class="form-group">
+                        <label for="s-ec-phone">Phone Number</label>
+                        <input type="tel" id="s-ec-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="s-occupation">Occupation</label>
+                        <input type="text" id="s-occupation">
+                    </div>
+                    <div class="form-group">
+                        <label for="s-smoking">Smoking Status</label>
+                        <select id="s-smoking">
+                            <option value="No">Non-smoker</option>
+                            <option value="Yes">Active Smoker</option>
+                            <option value="Former">Former Smoker</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="s-alcohol">Alcohol Consumption</label>
+                        <select id="s-alcohol">
+                            <option value="Non-drinker">Non-drinker</option>
+                            <option value="Social">Social Drinker</option>
+                            <option value="Regular">Regular Drinker</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="s-exercise">Exercise Frequency</label>
+                        <select id="s-exercise">
+                            <option value="Rare">Rarely</option>
+                            <option value="1-2 times/week">1-2 times / week</option>
+                            <option value="3+ times/week">3+ times / week</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="s-lang">Preferred Language</label>
+                        <input type="text" id="s-lang">
+                    </div>
+                </div>
+
+                <div class="form-group text-field-group">
+                    <label for="s-medications">Active Medications (comma-separated)</label>
+                    <input type="text" id="s-medications">
+                </div>
+                <div class="form-group text-field-group">
+                    <label for="s-conditions">Medical Conditions (comma-separated)</label>
+                    <input type="text" id="s-conditions">
+                </div>
+                <div class="form-group text-field-group">
+                    <label for="s-allergies">Allergies (comma-separated)</label>
+                    <input type="text" id="s-allergies">
+                </div>
+
+                <!-- Weight History Trend -->
+                <div class="weight-history-section">
+                    <h4>Weight Trends History</h4>
+                    <div id="weight-history-list" class="history-list">
+                        <!-- Weight records will render here -->
+                    </div>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" id="btn-settings-close" class="btn btn-secondary">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Updates</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SOS Emergency Confirmation Modal -->
+    <div id="sos-modal" class="modal-overlay" style="display: none;">
+        <div class="glass-card modal-content card-sos">
+            <div class="sos-modal-header">
+                <span class="sos-icon-pulse">🚨</span>
+                <h3>Emergency SOS</h3>
+            </div>
+            <p class="sos-modal-intro">Your current location has been detected.</p>
+            
+            <div class="sos-location-box">
+                <p>📍 <strong>Current Location:</strong></p>
+                <p>Latitude: <span id="sos-modal-lat">Detecting...</span></p>
+                <p>Longitude: <span id="sos-modal-lon">Detecting...</span></p>
+                <p>Accuracy: <span id="sos-modal-acc">± -- meters</span></p>
+                <p id="sos-modal-address" class="sos-address-text"></p>
+            </div>
+
+            <p class="sos-modal-warning">Nearby emergency facilities will be shown based on your current location. Are you sure you want to continue?</p>
+            
+            <div class="modal-buttons sos-buttons">
+                <button type="button" id="btn-sos-cancel" class="btn btn-secondary">CANCEL</button>
+                <button type="button" id="btn-sos-confirm" class="btn btn-danger">CONFIRM SOS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal-overlay" style="display: none;">
+        <div class="glass-card modal-content card-sm">
+            <h3 style="color: #dc2626; font-size: 1.3rem;">Delete Profile?</h3>
+            <p style="margin: 1rem 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+                You are about to permanently delete <strong id="delete-profile-name" style="color: var(--text-main);">Profile Name</strong>.<br>This will remove the profile and all its stored health information.
+            </p>
+            <div class="modal-buttons" style="justify-content: space-between;">
+                <button type="button" id="btn-delete-cancel" class="btn btn-secondary">CANCEL</button>
+                <button type="button" id="btn-delete-confirm" class="btn btn-danger">DELETE PROFILE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application UI: Two-Column Split (Chat + Right Medical Assistance Panel) -->
+    <div id="chat-container-wrap" class="app-container chat-view-wrap" style="display: none;">
+        <header class="app-header-nav">
+            <div class="brand-wrap">
+                <span id="active-profile-avatar" class="brand-avatar">🐉</span>
+                <div>
+                    <h1>Toothless</h1>
+                    <p>Profile: <span id="active-profile-name">Loading...</span></p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="btn-activate-sos-top" class="btn btn-sos-nav" title="Activate SOS Emergency">🚨 ACTIVATE SOS</button>
+                <button id="btn-open-settings" class="icon-btn" title="Profile Settings">⚙️</button>
+                <button id="btn-switch-profile" class="icon-btn" title="Switch / Logout Profile">👥</button>
+            </div>
+        </header>
+
+        <div class="dual-panel-layout">
+            <!-- Left Panel: Unmodified Toothless AI Chat Interface -->
+            <main class="glass-card chat-card">
+                <section class="chat-section">
+                    <div class="chat-container" id="chat-container">
+                        <div class="message system-message">
+                            <div class="message-content">Hi there! I'm Toothless, your AI health companion. How can I help you today?</div>
+                        </div>
+                    </div>
+                    
+                    <form id="chat-form" class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Type your symptoms or message here..." autocomplete="off" required>
+                        <button type="submit" id="send-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        </button>
+                    </form>
+                    <p class="disclaimer">⚠️ Disclaimer: This is an AI assistant, not a doctor. This is not medical advice. If you are experiencing a medical emergency, please call emergency services immediately.</p>
+                </section>
+            </main>
+
+            <!-- Right Panel: Live Medical Assistance & SOS Hub -->
+            <aside id="medical-panel" class="glass-card medical-side-panel">
+                <header class="medical-panel-header">
+                    <h2>📍 Medical Assistance</h2>
+                    <span class="panel-subtitle">Live GPS & Emergency Hub</span>
+                </header>
+
+                <!-- Active SOS Banner (Hidden by default) -->
+                <div id="sos-active-banner" class="sos-active-card" style="display: none;">
+                    <div class="sos-active-header">
+                        <span class="pulse-beacon"></span>
+                        <h3>🚨 EMERGENCY SOS ACTIVE</h3>
+                    </div>
+                    <p class="sos-demo-notice">
+                        <strong>DEMO MODE:</strong> Emergency SOS activated. Your live location has been detected. Automatic ambulance dispatch is not configured in this demo. Please use the direct emergency call action below.
+                    </p>
+                    <div class="sos-active-actions">
+                        <a id="btn-call-emergency" href="tel:112" class="btn btn-call-emergency">
+                            📞 CALL EMERGENCY SERVICES (<span id="emergency-phone-num">112</span>)
+                        </a>
+                        <button id="btn-deactivate-sos" class="btn btn-secondary btn-sm">Deactivate SOS</button>
+                    </div>
+                </div>
+
+                <!-- Location Status Box -->
+                <div class="location-status-card">
+                    <div class="location-header-row">
+                        <span class="loc-title">📍 Current Location</span>
+                        <button id="btn-refresh-location" class="btn-refresh-icon" title="Refresh Live GPS">🔄</button>
+                    </div>
+
+                    <div id="location-error-box" class="location-error-alert" style="display: none;">
+                        <p id="location-error-text">Location access pending...</p>
+                        <button id="btn-retry-location" class="btn btn-secondary btn-xs">TRY AGAIN</button>
+                    </div>
+
+                    <div id="location-info-box" class="location-info-grid">
+                        <div class="coord-item">
+                            <span class="coord-label">Latitude:</span>
+                            <span id="live-lat-val" class="coord-val">Detecting...</span>
+                        </div>
+                        <div class="coord-item">
+                            <span class="coord-label">Longitude:</span>
+                            <span id="live-lon-val" class="coord-val">Detecting...</span>
+                        </div>
+                        <div class="coord-item full-width">
+                            <span class="coord-label">Accuracy:</span>
+                            <span id="live-acc-val" class="coord-val">± -- meters</span>
+                        </div>
+                        <div class="coord-item full-width" id="address-wrap" style="display: none;">
+                            <span class="coord-label">Address:</span>
+                            <span id="live-address-val" class="coord-val text-address">Fetching address...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Interactive Leaflet Map -->
+                <div class="map-container-wrap">
+                    <div id="medical-map"></div>
+                    <div id="map-loading-overlay" class="map-overlay-loading" style="display: none;">
+                        <span>Loading Map & Facilities...</span>
+                    </div>
+                </div>
+
+                <!-- Facility Categories Filter Chips -->
+                <div class="facility-filters">
+                    <button class="filter-chip active" data-filter="all">🏥 All Facilities</button>
+                    <button class="filter-chip" data-filter="hospital">🏥 Hospitals</button>
+                    <button class="filter-chip" data-filter="clinic">🩺 Clinics</button>
+                    <button class="filter-chip" data-filter="pharmacy">💊 Pharmacies</button>
+                </div>
+
+                <!-- Selected Facility Detail Card (Rendered when user selects a facility) -->
+                <div id="selected-facility-card" class="selected-facility-card" style="display: none;">
+                    <div class="selected-header">
+                        <h4 id="sel-fac-name">Facility Name</h4>
+                        <span id="sel-fac-type" class="badge-type">Hospital</span>
+                    </div>
+                    <p id="sel-fac-address" class="sel-address">Address details</p>
+                    <div class="sel-meta-row">
+                        <span>Distance: <strong id="sel-fac-dist">-- km</strong></span>
+                        <span>ETA: <strong id="sel-fac-eta">~-- min</strong></span>
+                        <span id="sel-fac-status" class="status-open">Open 24/7</span>
+                    </div>
+                    <div class="sel-actions">
+                        <button id="btn-get-directions" class="btn btn-primary btn-sm">🧭 GET DIRECTIONS</button>
+                        <button id="btn-open-nav" class="btn btn-secondary btn-sm">🧭 OPEN NAVIGATION</button>
+                    </div>
+                </div>
+
+                <!-- Route Distance & Time Bar (Rendered when routing is active) -->
+                <div id="route-info-banner" class="route-info-banner" style="display: none;">
+                    <div class="route-info-content">
+                        <span>🧭 Route Active: <strong id="route-dist-text">4.2 km</strong> (<strong id="route-eta-text">~11 min</strong>)</span>
+                        <button id="btn-clear-route" class="btn-text-close" title="Clear Route">✕</button>
+                    </div>
+                </div>
+
+                <!-- Nearby Facilities List -->
+                <div class="facilities-section">
+                    <h3>Nearby Facilities</h3>
+                    <div id="facilities-list" class="facilities-list">
+                        <div class="facility-skeleton">Granting location permission to fetch nearby facilities...</div>
+                    </div>
+                </div>
+
+                <!-- Prominent Emergency SOS Button -->
+                <div class="sos-action-wrapper">
+                    <button id="btn-activate-sos-side" class="btn btn-activate-sos">
+                        🚨 ACTIVATE SOS EMERGENCY
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Leaflet JS CDN -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js?v=3.0"></script>
 </body>
 
 </html>

@@ -18,6 +18,18 @@ class Settings(BaseSettings):
     ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
     CLAUDE_MODEL: str = "claude-opus-4-20250805"
     
+    # Google Gemini API
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+    GEMINI_MODEL: str = "gemini-3.5-flash"
+    
+    # Groq API
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    GROQ_MODEL: str = "llama-3.1-8b-instant"
+
+    
+    # AI Provider routing selection
+    AI_PROVIDER: str = os.getenv("AI_PROVIDER", "auto")  # 'auto', 'anthropic', 'gemini', 'groq'
+    
     # JWT
     SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
     ALGORITHM: str = "HS256"
@@ -26,9 +38,15 @@ class Settings(BaseSettings):
     # CORS
     ALLOWED_ORIGINS: list = ["http://localhost:3000", "http://localhost:8000"]
     
+    # Emergency & Medical Panel Settings
+    EMERGENCY_PHONE_DEFAULT: str = os.getenv("EMERGENCY_PHONE_DEFAULT", "112")
+    MAPS_API_KEY: str = os.getenv("MAPS_API_KEY", "")
+    ROUTING_API_KEY: str = os.getenv("ROUTING_API_KEY", "")
+
     class Config:
         env_file = ".env"
         case_sensitive = True
 
 
 settings = Settings()
+

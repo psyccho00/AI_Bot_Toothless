@@ -1,4 +1,4 @@
-# Proxy file to maintain compatibility with existing 'import schemas' calls
+# Schemas module initialization
 from schemas.user import (
     ProfileCreate,
     ProfileUpdateRequest,

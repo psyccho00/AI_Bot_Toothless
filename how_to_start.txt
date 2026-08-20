@@ -1,0 +1,9 @@
+
+# To start Backend: python -m uvicorn main:app --reload
+# In Browser: http://localhost:8000/app
+
+http://localhost:8000/app/
+
+
+cd ".\Health Assitance Toothless"
+.\.venv\Scripts\Activate.ps1
